@@ -176,7 +176,36 @@ namespace Console_POS
 
         }
 
- 
+        static void RemoveItemFromCart()
+        {
+            Console.Clear();
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine("         REMOVE ITEM");
+            Console.WriteLine("-------------------------------");
+
+            for (int i = 0; i < cartItems.Length; i++)
+            {
+                if (!string.IsNullOrEmpty(cartItems[i]))
+                    Console.WriteLine($" [{i + 1}] {cartItems[i],-15} x{cartQuantities[i],-5}");
+            }
+
+            Console.WriteLine("-------------------------------");
+
+            Console.Write("Choose item to remove: ");
+            int choice;
+
+            if (!int.TryParse(Console.ReadLine(), out choice) || choice < 1 || choice > cartItems.Length || string.IsNullOrEmpty(cartItems[choice - 1]))
+            {
+                Console.WriteLine("Invalid choice. Please try again.");
+                return;
+            }
+
+            cartItems[choice - 1] = null;
+            cartQuantities[choice - 1] = 0;
+            Console.WriteLine("Item removed from the cart.");
+        }
+
+
     }
 
 }
